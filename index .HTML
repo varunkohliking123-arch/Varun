@@ -1,0 +1,330 @@
+<!doctype html>
+‎<html lang="en">
+‎<head>
+‎  <meta charset="utf-8" />
+‎  <meta na me="viewport" content="width=device-width,initial-scale=1" />
+‎  <title>My Digital Portfolio</title>
+‎  <style>
+‎    :root{
+‎      --bg: #0f1724;
+‎      --card: #0b1220;
+‎      --muted: #94a3b8;
+‎      --accent: #06b6d4;
+‎      --glass: rgba(255,255,255,0.04);
+‎      --glass-2: rgba(255,255,255,0.02);
+‎      --radius: 14px;
+‎      color-scheme: dark;
+‎      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+‎    }
+‎
+‎    *{box-sizing:border-box}
+‎    html,body{height:100%}
+‎    body{
+‎      margin:0;
+‎      background: linear-gradient(180deg,var(--bg),#071021 120%);
+‎      color:#e6eef6;
+‎      -webkit-font-smoothing:antialiased;
+‎      -moz-osx-font-smoothing:grayscale;
+‎      line-height:1.45;
+‎    }
+‎
+‎    /* Container */
+‎    .wrap{max-width:1100px;margin:36px auto;padding:24px}
+‎
+‎    /* Top Nav */
+‎    header{
+‎      display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:22px
+‎    }
+‎    .brand{display:flex;gap:12px;align-items:center}
+‎    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:700}
+‎    .brand h1{font-size:18px;margin:0}
+‎    nav{display:flex;gap:14px;align-items:center}
+‎    nav a{color:var(--muted);text-decoration:none;font-size:14px;padding:8px;border-radius:10px}
+‎    nav a:hover{color:#fff;background:var(--glass)}
+‎
+‎    /* Hero */
+‎    .hero{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:center}
+‎    .hero-card{background:linear-gradient(180deg,var(--card),rgba(8,12,20,0.6));padding:22px;border-radius:var(--radius);box-shadow:0 6px 24px rgba(2,6,23,0.6)}
+‎    .intro h2{margin:0 0 8px 0;font-size:28px}
+‎    .intro p{margin:0;color:var(--muted)}
+‎    .cta{margin-top:16px;display:flex;gap:8px}
+‎    .btn{background:linear-gradient(90deg,var(--accent),#7c3aed);border:none;padding:10px 14px;border-radius:12px;color:#06202a;font-weight:600;cursor:pointer}
+‎    .btn.secondary{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
+‎
+‎    /* Profile card */
+‎    .profile{background:var(--glass);border-radius:12px;padding:18px;display:flex;gap:12px;align-items:center}
+‎    .avatar{width:84px;height:84px;border-radius:12px;flex-shrink:0;background:linear-gradient(180deg,#123, #345);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700}
+‎    .profile h3{margin:0}
+‎    .profile p{margin:0;color:var(--muted);font-size:14px}
+‎
+‎    /* Sections */
+‎    section{margin-top:22px}
+‎    h3.section-title{margin:0 0 12px 0}
+‎
+‎    /* Projects grid */
+‎    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+‎    .card{background:var(--glass-2);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+‎    .card h4{margin:0 0 6px 0}
+‎    .card p{margin:0;color:var(--muted);font-size:13px}
+‎    .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+‎    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
+‎
+‎    /* Skills bar */
+‎    .skill{margin-bottom:10px}
+‎    .skill .label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+‎    .bar{background:rgba(255,255,255,0.03);height:10px;border-radius:999px;overflow:hidden}
+‎    .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed)}
+‎
+‎    /* Contact */
+‎    form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+‎    form input, form textarea{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:8px;color:#e6eef6}
+‎    form textarea{grid-column:1/-1;min-height:120px}
+‎
+‎    /* Footer */
+‎    footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+‎
+‎    /* Responsive */
+‎    @media (max-width:920px){
+‎      .hero{grid-template-columns:1fr}
+‎      form{grid-template-columns:1fr}
+‎    }
+‎
+‎    /* Small utilities */
+‎    .muted{color:var(--muted)}
+‎    .flex{display:flex;gap:8px;align-items:center}
+‎
+‎    /* Simple modal */
+‎    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.5);z-index:40}
+‎    .modal.active{display:flex}
+‎    .modal .dlg{background:linear-gradient(180deg,#041220,#071427);padding:18px;border-radius:14px;max-width:720px;width:94%}
+‎
+‎    /* Tiny animation */
+‎    .fade-in{animation:fadeIn .6s ease both}
+‎    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+‎  </style>
+‎</head>
+‎<body>
+‎  <div class="wrap">
+‎    <header>
+‎      <div class="brand">
+‎        <div class="logo">UD</div>
+‎        <div>
+‎          <h1>VARUN</h1>
+‎          <div class="muted" style="font-size:12px">Front-end Developer • Problem solver</div>
+‎        </div>
+‎      </div>
+‎
+‎      <nav>
+‎        <a href="#projects">Projects</a>
+‎        <a href="#skills">Skills</a>
+‎        <a href="#about">About</a>
+‎        <a href="#contact">Contact</a>
+‎        <button class="btn" id="themeToggle" title="Toggle theme">Toggle</button>
+‎      </nav>
+‎    </header>
+‎
+‎    <main>
+‎      <section class="hero">
+‎        <div class="hero-card fade-in">
+‎          <div class="intro">
+‎            <h2>Hi — I’m Varun. I build beautiful, accessible web apps.</h2>
+‎            <p>I create interfaces that are simple, fast and delightful. I love JavaScript, CSS, performance optimizations and clean UX.</p>
+‎          </div>
+‎
+‎          <div class="cta">
+‎            <button class="btn" onclick="scrollToSection('projects')">See projects</button>
+‎            <a class="btn secondary" href="#contact">Hire me</a>
+‎          </div>
+‎
+‎          <div style="margin-top:18px">
+‎            <div style="display:flex;gap:12px;margin-top:12px">
+‎              <div class="card" style="flex:1">
+‎                <div style="font-size:12px;color:var(--muted)">Experience</div>
+‎                <div style="font-weight:700">3+ years</div>
+‎              </div>
+‎              <div class="card" style="flex:1">
+‎                <div style="font-size:12px;color:var(--muted)">Clients</div>
+‎                <div style="font-weight:700">12+</div>
+‎              </div>
+‎            </div>
+‎          </div>
+‎        </div>
+‎
+‎        <aside class="profile fade-in">
+‎          <div class="avatar">U</div>
+‎          <div>
+‎            <h3>Varun c</h3>
+‎            <p class="muted">Frontend developer — React / Vanilla JS / CSS</p>
+‎            <div style="margin-top:10px;display:flex;gap:8px">
+‎              <a class="tag" href="#projects">Projects</a>
+‎              <a class="tag" href="#contact">Contact</a>
+‎            </div>
+‎          </div>
+‎        </aside>
+‎      </section>
+‎
+‎      <section id="projects">
+‎        <h3 class="section-title">Featured projects</h3>
+‎        <div class="grid">
+‎          <article class="card">
+‎            <h4>Project Aurora</h4>
+‎            <p class="muted">A responsive design system & component library for startups.</p>
+‎            <div class="tags"><span class="tag">Design</span><span class="tag">React</span><span class="tag">Accessibility</span></div>
+‎            <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+‎              <button class="btn" onclick="openProject('Aurora','A scalable component library with theming and docs.')">Details</button>
+‎              <a class="muted" href="#" onclick="event.preventDefault()">Live ↗</a>
+‎            </div>
+‎          </article>
+‎
+‎          <article class="card">
+‎            <h4>TaskFlow</h4>
+‎            <p class="muted">A tiny productivity app with offline sync.</p>
+‎            <div class="tags"><span class="tag">PWA</span><span class="tag">IndexedDB</span></div>
+‎            <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+‎              <button class="btn" onclick="openProject('TaskFlow','A progressive web app for task management with offline support.')">Details</button>
+‎              <a class="muted" href="#" onclick="event.preventDefault()">Live ↗</a>
+‎            </div>
+‎          </article>
+‎
+‎          <article class="card">
+‎            <h4>DataViz Studio</h4>
+‎            <p class="muted">Interactive charts and small dashboards for reporting.</p>
+‎            <div class="tags"><span class="tag">D3</span><span class="tag">Charts</span></div>
+‎            <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+‎              <button class="btn" onclick="openProject('DataViz Studio','Custom chart components and exportable reports.')">Details</button>
+‎              <a class="muted" href="#" onclick="event.preventDefault()">Live ↗</a>
+‎            </div>
+‎          </article>
+‎
+‎          <!-- Add more cards as needed -->
+‎        </div>
+‎      </section>
+‎
+‎      <section id="skills">
+‎        <h3 class="section-title">Skills</h3>
+‎        <div class="card">
+‎          <div class="skill"><div class="label"><span>HTML & CSS</span><span>95%</span></div><div class="bar"><span style="width:95%"></span></div></div>
+‎          <div class="skill"><div class="label"><span>JavaScript</span><span>90%</span></div><div class="bar"><span style="width:90%"></span></div></div>
+‎          <div class="skill"><div class="label"><span>React</span><span>85%</span></div><div class="bar"><span style="width:85%"></span></div></div>
+‎          <div class="skill"><div class="label"><span>Performance</span><span>80%</span></div><div class="bar"><span style="width:80%"></span></div></div>
+‎        </div>
+‎      </section>
+‎
+‎      <section id="about">
+‎        <h3 class="section-title">About</h3>
+‎        <div class="card">
+‎          <p class="muted">I’m a front-end developer focused on building fast, accessible web experiences. I care about the details — animations that enhance clarity, code that’s easy to maintain, and interfaces that include everyone.</p>
+‎        </div>
+‎      </section>
+‎
+‎      <section id="contact">
+‎        <h3 class="section-title">Contact</h3>
+‎        <div class="card">
+‎          <form onsubmit="handleContact(event)">
+‎            <input name="name" placeholder="Varun C" required />
+‎            <input name="email" placeholder="Varunkholiking123 @gmail.com" type="email" required />
+‎            <input name="subject" placeholder="Subject" />
+‎            <textarea name="message" placeholder="Message" required></textarea>
+‎            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+‎              <small class="muted">Or email me at <strong>Varunkholiking123 @gmail.com/strong></small>
+‎              <button class="btn" type="submit">Send</button>
+‎            </div>
+‎          </form>
+‎        </div>
+‎      </section>
+‎
+‎      <footer>Made with  • Built with HTML, CSS & JavaScript</footer>
+‎    </main>
+‎  </div>
+‎
+‎  <!-- Modal -->
+‎  <div id="modal" class="modal" role="dialog" aria-modal="true">
+‎    <div class="dlg">
+‎      <div style="display:flex;justify-content:space-between;align-items:center">
+‎        <strong id="dlgTitle">Project</strong>
+‎        <button class="btn secondary" onclick="closeModal()">Close</button>
+‎      </div>
+‎      <p id="dlgDesc" style="margin-top:12px;color:var(--muted)"></p>
+‎    </div>
+‎  </div>
+‎
+‎  <script>
+‎    // Small helpers
+‎    function scrollToSection(id){
+‎      document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+‎    }
+‎
+‎    function openProject(title, desc){
+‎      document.getElementById('dlgTitle').textContent = title;
+‎      document.getElementById('dlgDesc').textContent = desc;
+‎      document.getElementById('modal').classList.add('active');
+‎    }
+‎    function closeModal(){
+‎      document.getElementById('modal').classList.remove('active');
+‎    }
+‎
+‎    // Simple theme toggle that swaps root colors (keeps in localStorage)
+‎    const themeToggle = document.getElementById('themeToggle');
+‎    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+‎    function applyTheme(light){
+‎      if(light){
+‎        document.documentElement.style.setProperty('--bg','#f6fbff');
+‎        document.documentElement.style.setProperty('--card','#ffffff');
+‎        document.documentElement.style.setProperty('--muted','#475569');
+‎        document.documentElement.style.setProperty('--accent','#0ea5a4');
+‎        document.documentElement.style.setProperty('--glass','rgba(2,6,23,0.03)');
+‎        document.documentElement.style.setProperty('--glass-2','rgba(2,6,23,0.02)');
+‎        document.documentElement.style.color = '#06121a';
+‎        document.documentElement.style.setProperty('color-scheme','light');
+‎      } else {
+‎        // reset to default dark values
+‎        document.documentElement.style.removeProperty('--bg');
+‎        document.documentElement.style.removeProperty('--card');
+‎        document.documentElement.style.removeProperty('--muted');
+‎        document.documentElement.style.removeProperty('--accent');
+‎        document.documentElement.style.removeProperty('--glass');
+‎        document.documentElement.style.removeProperty('--glass-2');
+‎        document.documentElement.style.removeProperty('color');
+‎        document.documentElement.style.setProperty('color-scheme','dark');
+‎      }
+‎      localStorage.setItem('portfolio_light', light ? '1' : '0');
+‎    }
+‎    themeToggle.addEventListener('click', ()=>{
+‎      const current = localStorage.getItem('portfolio_light') === '1';
+‎      applyTheme(!current);
+‎    });
+‎    // initialize
+‎    applyTheme(localStorage.getItem('portfolio_light') === '1' || prefersLight);
+‎
+‎    // Contact handler (demo: logs to console and shows a quick toast style alert)
+‎    function handleContact(e){
+‎      e.preventDefault();
+‎      const f = e.target;
+‎      const data = {
+‎        name: f.name.value, email: f.email.value, subject: f.subject.value, message: f.message.value
+‎      };
+‎      console.log('Contact form submitted', data);
+‎      // Show quick visual feedback
+‎      const old = document.querySelector('.card > .toast');
+‎      if(old) old.remove();
+‎      const t = document.createElement('div');
+‎      t.className = 'toast';
+‎      t.textContent = 'Thanks — message captured (demo). Check console for details.';
+‎      t.style.cssText = 'margin-top:12px;background:rgba(6,182,212,0.12);padding:10px;border-radius:8px;color:var(--muted)';
+‎      document.querySelector('#contact .card').appendChild(t);
+‎      f.reset();
+‎      setTimeout(()=>t.remove(),4000);
+‎    }
+‎
+‎    // Close modal on backdrop click or Escape
+‎    document.getElementById('modal').addEventListener('click', (e)=>{
+‎      if(e.target === e.currentTarget) closeModal();
+‎    });
+‎    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+‎
+‎    // Smooth highlight for nav active link
+‎    const links = Array.from(document.querySelectorAll('nav a'));
+‎    links.forEach(l=>l.addEventListener('click', ()=> links.forEach(x=>x.classList.remove('active'))));
+‎  </script>
+‎</body>
+‎</html>
